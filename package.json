@@ -1,0 +1,17 @@
+{
+    "name": "projeto_node_mongodb",
+    "version": "1.0.0",
+    "description": "Desenvolver projeto com base nos estudos do curso do site Celke - professor Cesar",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Walter Baleco",
+    "license": "MIT",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "express-handlebars": "^3.1.0",
+        "mongoose": "^5.8.9"
+    }
+}
