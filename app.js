@@ -6,6 +6,7 @@ const bodyparser = require('body-parser');
 const handlebars = require('express-handlebars');
 const mongoose = require('mongoose');
 const rotas = require('./routes/rotas');
+const path = require('path');
 
 //Configurações
 //body-parser
@@ -16,6 +17,9 @@ app.use(bodyparser.json());
 //Handlebars
 app.engine('handlebars', handlebars({ defaultLayout: "main" }));
 app.set('view engine', 'handlebars');
+
+//Arquivos estáticos
+app.use(express.static(path.join(__dirname, "public")));
 
 //Rotas
 

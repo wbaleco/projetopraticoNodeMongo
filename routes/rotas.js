@@ -6,7 +6,8 @@ const router = express.Router();
 //Rotas
 
 router.get('/', (req, res) => {
-    res.send("Página inicial");
+    //res.send("Página inicial");
+    res.render("admin/index");
 
 });
 router.get('/listar-pagamentos', (req, res) => {
