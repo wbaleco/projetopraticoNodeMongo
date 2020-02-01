@@ -1,4 +1,4 @@
-## Criar o arquivo package.json.
+Criar o arquivo package.json.
 npm init
 
 //Instalar o Express: Gerenciar rotas e URLs.

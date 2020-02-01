@@ -7,11 +7,11 @@ body {
 }
 
 .menu-per {
-    background-color: #17a2b8!important;
+    background-color: #188DAD !important;
 }
 
 .sidebar {
-    background-color: #41586e;
+    background-color: #363a3e;
     min-width: 250px;
     max-width: 250px;
     min-height: calc(100vh - 56px);
