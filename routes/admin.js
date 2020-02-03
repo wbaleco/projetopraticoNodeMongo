@@ -22,16 +22,23 @@ router.get('/cad-cat-pagamento', (req, res) => {
 });
 
 router.post('/add-cat-pagamento', (req, res) => {
-    const addCatPagamento = {
-        nome: req.body.nome
-    }
-    new CatPagamento(addCatPagamento).save().then(() => {
-        console.log("Categoria de pagamento cadastrado com sucesso!");
-    }).catch((erro) => {
-        console.log("Error: Categoria de pagamento não foi  cadastrada com sucesso!");
-    });
-});
+    var errors = []
+    if (errors.length > 0 || !req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
+        errors.push({ error: "Necessário preencher o campo nome!" });
+        res.render("admin/cad-cat-pagamento", { errors: errors });
 
+    } else {
+        const addCatPagamento = {
+            nome: req.body.nome
+        };
+        new CatPagamento(addCatPagamento).save().then(() => {
+            req.flash("success_msg", "Categoria de pagamento cadastrado com sucesso!")
+            res.redirect('/cat-pagamento');
+        }).catch((erro) => {
+            req.flash("error_msg", "Error: Categoria de pagamento não foi  cadastrada com sucesso!")
+        });
+    }
+})
 
 //Exportar o módulo de rotas
 module.exports = router;

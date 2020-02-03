@@ -12,3 +12,9 @@ npm install --save body-parser
 
 //Instalar o Mongoose
 npm install --save mongoose
+
+//Instalar Módulo de Sessão
+npm install --save express-session
+
+//Instalar o módulo para manipular as mensagens
+npm install --save connect-flash
