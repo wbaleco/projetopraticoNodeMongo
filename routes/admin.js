@@ -15,7 +15,14 @@ router.get('/pagamentos', (req, res) => {
 });
 
 router.get('/cat-pagamento', (req, res) => {
-    res.render('admin/cat-pagamento');
+    CatPagamento.find().then((catpagamento) => {
+        res.render('admin/cat-pagamento', { catpagamentos: catpagamento });
+    }).catch((erro) => {
+        req.flash("error_msg", "Erro: categoria de pagamento não encontrada!");
+        res.redirect('admin/cat-pagamento');
+
+    });
+
 });
 router.get('/cad-cat-pagamento', (req, res) => {
     res.render('admin/cad-cat-pagamento');
