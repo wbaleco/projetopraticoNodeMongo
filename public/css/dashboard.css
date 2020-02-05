@@ -11,7 +11,7 @@ body {
 }
 
 .sidebar {
-    background-color: #363a3e;
+    background-color: #ffffff;
     min-width: 250px;
     max-width: 250px;
     min-height: calc(100vh - 56px);
@@ -21,7 +21,7 @@ body {
 .sidebar ul li a {
     display: block;
     padding: 0.75rem 1rem;
-    color: #c7cace;
+    color: #28292a;
     text-decoration: none;
 }
 

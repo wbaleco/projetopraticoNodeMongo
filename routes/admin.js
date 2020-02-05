@@ -45,7 +45,33 @@ router.post('/add-cat-pagamento', (req, res) => {
             req.flash("error_msg", "Error: Categoria de pagamento não foi  cadastrada com sucesso!")
         });
     }
-})
+});
+
+router.get('/edit-cat-pagamento/:id', (req, res) => {
+
+    CatPagamento.findOne({ _id: req.params.id }).then((catpagamento) => {
+        res.render('admin/edit-cat-pagamento', { catpagamento: catpagamento });
+    }).catch((erro) => {
+        req.flash("error_msg", "Error: Categoria de pagamento não foi editada com sucesso!")
+        res.redirect('/cat-pagamento');
+    });
+});
+
+router.post('/update-cat-pagamento', (req, res) => {
+    CatPagamento.findOne({ _id: req.body.id }).then((catpagamento) => {
+        catpagamento.nome = req.body.nome
+        catpagamento.save().then(() => {
+            req.flash("success_msg", "Categoria de pagamento editada com sucesso!")
+            res.redirect("/cat-pagamento");
+        }).catch((erro) => {
+            req.flash("error_msg", "Error: Categoria de pagamento não foi editada com sucesso!")
+            res.redirect("/cat-pagamento");
+        });
+    }).catch((erro) => {
+        req.flash("error_msg", "Error: Categoria de pagamento não encontrado!")
+        res.redirect("/cat-pagamento");
+    });
+});
 
 //Exportar o módulo de rotas
 module.exports = router;
