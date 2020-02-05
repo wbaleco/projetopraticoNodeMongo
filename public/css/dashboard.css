@@ -28,12 +28,12 @@ body {
 .sidebar ul li a:hover,
 .sidebar ul .active a {
     color: #ecedee;
-    background-color: #3e5468;
+    background-color: #0981f194;
 }
 
 .sidebar ul ul a {
     padding-left: 2.5rem;
-    background-color: #374b5e;
+    background-color: #ffffff;
 }
 
 
@@ -65,7 +65,7 @@ body {
 }
 
 .sidebar [aria-expanded="true"] {
-    background-color: #344759;
+    background-color: #4aa1f3;
 }
 
 .sidebar [aria-expanded="true"]:before {

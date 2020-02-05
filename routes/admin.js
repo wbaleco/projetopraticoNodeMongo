@@ -86,5 +86,17 @@ router.get('/del-cat-pagamento/:id', (req, res) => {
 
 });
 
+router.get('/visu-cat-pagamento/:id', (req, res) => {
+
+    CatPagamento.findOne({ _id: req.params.id }).then((catpagamento) => {
+        res.render('admin/visu-cat-pagamento', { catpagamento: catpagamento });
+
+    }).catch((erro) => {
+        req.flash("error_msg", "Error: Categoria de pagamento não foi deletada!")
+        res.redirect("/cat-pagamento");
+    });
+
+});
+
 //Exportar o módulo de rotas
 module.exports = router;
