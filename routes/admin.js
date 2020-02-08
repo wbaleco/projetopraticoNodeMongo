@@ -4,6 +4,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 require("../models/CatPagamento");
 const CatPagamento = mongoose.model('catpagamento');
+require('../models/Pagamento');
+const Pagamento = mongoose.model('pagamento');
 
 router.get('/', (req, res) => {
     //res.send("Página incial do administrativo");
@@ -12,6 +14,17 @@ router.get('/', (req, res) => {
 
 router.get('/pagamentos', (req, res) => {
     res.render('admin/pagamentos');
+});
+
+router.get('/cad-pagamento', (req, res) => {
+    CatPagamento.find().then((catpagamento) => {
+        res.render('admin/cad-pagamento', { catpagamentos: catpagamento });
+    }).catch((erro) => {
+        req.flash("error_msg", "Erro: categoria de pagamento não encontrada!");
+        res.redirect('admin/pagamentos');
+    });
+
+
 });
 
 router.get('/cat-pagamento', (req, res) => {
