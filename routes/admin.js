@@ -23,9 +23,40 @@ router.get('/cad-pagamento', (req, res) => {
         req.flash("error_msg", "Erro: categoria de pagamento não encontrada!");
         res.redirect('admin/pagamentos');
     });
+});
 
+
+router.post('/add-pagamento', (req, res) => {
+    var errors = [];
+    if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
+        errors.push({ error: "Necessário preencher o campo nome" });
+    }
+    if (!req.body.valor || typeof req.body.valor == undefined || req.body.valor == null) {
+        errors.push({ error: "Necessário preencher o campo valor" });
+    }
+    if (!req.body.catpagamento || typeof req.body.catpagamento == undefined || req.body.catpagamento == null) {
+        errors.push({ error: "Necessário preencher o campo categoria de pagamento" });
+    }
+
+    if (errors.length > 0) {
+        res.render("admin/cad-pagamento", { errors: errors });
+    } else {
+        const addPagamento = {
+            nome: req.body.nome,
+            valor: req.body.valor,
+            catpagamento: req.body.catpagamento
+        };
+        new Pagamento(addPagamento).save().then(() => {
+            req.flash("success_msg", "Pagamento cadastrado com sucesso!");
+            res.redirect('/pagamentos');
+        }).catch((erro) => {
+            req.flash("error_msg", "Error: Pagamento não foi cadastrado com sucesso");
+            res.redirect('/cad-pagamento');
+        });
+    }
 
 });
+
 
 router.get('/cat-pagamento', (req, res) => {
     CatPagamento.find().then((catpagamento) => {
@@ -42,7 +73,7 @@ router.get('/cad-cat-pagamento', (req, res) => {
 });
 
 router.post('/add-cat-pagamento', (req, res) => {
-    var errors = []
+    var errors = [];
     if (errors.length > 0 || !req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
         errors.push({ error: "Necessário preencher o campo nome!" });
         res.render("admin/cad-cat-pagamento", { errors: errors });
