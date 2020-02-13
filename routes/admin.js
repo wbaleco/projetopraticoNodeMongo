@@ -13,7 +13,15 @@ router.get('/', (req, res) => {
 });
 
 router.get('/pagamentos', (req, res) => {
-    res.render('admin/pagamentos');
+    Pagamento.find().populate("catpagamento").then((pagamentos) => {
+        res.render('admin/pagamentos', { pagamentos: pagamentos });
+
+    }).catch((erro) => {
+        req.flash("error_msg", "Erro: categoria de pagamentos não encontrados!");
+        res.redirect('admin/pagamentos');
+    });
+
+
 });
 
 router.get('/cad-pagamento', (req, res) => {
