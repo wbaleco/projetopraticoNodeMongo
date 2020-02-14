@@ -7,11 +7,12 @@ body {
 }
 
 .menu-per {
-    background-color: #188DAD !important;
+    background-color: #4d0770 !important;
+    height: 90px;
 }
 
 .sidebar {
-    background-color: #ffffff;
+    background-color: #630c8f;
     min-width: 250px;
     max-width: 250px;
     min-height: calc(100vh - 56px);
@@ -21,19 +22,19 @@ body {
 .sidebar ul li a {
     display: block;
     padding: 0.75rem 1rem;
-    color: #28292a;
+    color: #ffffff;
     text-decoration: none;
 }
 
 .sidebar ul li a:hover,
 .sidebar ul .active a {
     color: #ecedee;
-    background-color: #0981f194;
+    background-color: #a630e0;
 }
 
 .sidebar ul ul a {
     padding-left: 2.5rem;
-    background-color: #ffffff;
+    background-color: #630c8f;
 }
 
 
@@ -65,7 +66,7 @@ body {
 }
 
 .sidebar [aria-expanded="true"] {
-    background-color: #4aa1f3;
+    background-color: #b54af3;
 }
 
 .sidebar [aria-expanded="true"]:before {

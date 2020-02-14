@@ -24,6 +24,22 @@ router.get('/pagamentos', (req, res) => {
 
 });
 
+router.get('/edit-pagamento/:id', (req, res) => {
+    Pagamento.findOne({ _id: req.params.id }).populate("catpagamento").then((pagamento) => {
+        CatPagamento.find().then((catpagamentos) => {
+            res.render("admin/edit-pagamento", { pagamento: pagamento, catpagamentos: catpagamentos })
+        }).catch((erro) => {
+            req.flash("error_msg", "Error: Não foi possível carregar as categorias de pagamentos!")
+            res.redirect('/admin/pagamento')
+        })
+
+
+    }).catch((erro) => {
+        req.flash("error_msg", "Error: Não é possível carregar o formulário editar pagamento!")
+        res.redirect('/admin/pagamento')
+    })
+});
+
 router.get('/cad-pagamento', (req, res) => {
     CatPagamento.find().then((catpagamento) => {
         res.render('admin/cad-pagamento', { catpagamentos: catpagamento });
