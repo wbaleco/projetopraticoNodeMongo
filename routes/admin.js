@@ -24,6 +24,17 @@ router.get('/pagamentos', (req, res) => {
 
 });
 
+router.get('/visu-pagamento/:id', (req, res) => {
+    Pagamento.findOne({ _id: req.params.id }).populate('catpagamento').then((pagamento) => {
+        res.render('admin/vis-pagamento', { pagamento: pagamento });
+    }).catch((erro) => {
+        req.flash("error_msg", "Erro: Pagamento não encontrados!");
+        res.redirect('/pagamentos');
+
+    })
+
+});
+
 router.get('/edit-pagamento/:id', (req, res) => {
     Pagamento.findOne({ _id: req.params.id }).populate("catpagamento").then((pagamento) => {
         CatPagamento.find().then((catpagamentos) => {
