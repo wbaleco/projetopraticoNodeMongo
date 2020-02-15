@@ -31,14 +31,13 @@ router.get('/edit-pagamento/:id', (req, res) => {
         }).catch((erro) => {
             req.flash("error_msg", "Error: Não foi possível carregar as categorias de pagamentos!")
             res.redirect('/pagamentos');
-        })
-
+        });
 
     }).catch((erro) => {
         req.flash("error_msg", "Error: Não é possível carregar o formulário editar pagamento!")
         res.redirect('/pagamentos');
-    })
-})
+    });
+});
 router.post('/update-pagamento', (req, res) => {
     Pagamento.findOne({ _id: req.body.id }).then((pagamento) => {
         pagamento.nome = req.body.nome,
@@ -97,6 +96,16 @@ router.post('/add-pagamento', (req, res) => {
     }
 
 });
+
+router.get('/del-pagamento/:id', (req, res) => {
+    Pagamento.deleteOne({ _id: req.params.id }).then(() => {
+        req.flash("success_msg", "Pagamento deletado com sucesso");
+        res.redirect('/pagamentos');
+    }).catch((erro) => {
+        req.flash("error_msg", "Error: Pagamento não deletado");
+        res.redirect('/pagamentos');
+    })
+})
 
 /*CATEGORIAS DE PAGAMENTOS*/
 router.get('/cat-pagamento', (req, res) => {
