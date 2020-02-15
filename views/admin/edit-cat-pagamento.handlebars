@@ -5,24 +5,12 @@
                 <h2 class="display-4 titulo">Editar Categoria de Pagamento</h2>
             </div>
             <div class="p-2">
-                <span class="d-none d-md-block">
-                    <a href="/cat-pagamento" class="btn btn-outline-info btn-sm">Listar</a>
-                    <a href="/cad-cat-pagamento" class="btn btn-outline-success btn-sm">Cadastrar</a>
-                    <a href="/del-cat-pagamento/{{catpagamento._id}}" class="btn btn-outline-danger btn-sm">Apagar</a>
-                </span>
-                <div class="dropdown d-block d-md-none">
-                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Ações
+                <a href="/cat-pagamento">
+                    <button class="btn btn-outline-info btn-sm">
+                        Listar
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
-                        <a class="dropdown-item" href="/cat-pagamento">Listar</a>
-                        <a class="dropdown-item" href="/cad-cat-pagamento">Cadastrar</a>
-                        <a class="dropdown-item" href="/del-cat-pagamento/{{catpagamento._id}}">Apagar</a>
-                    </div>
-                </div>
+                </a>
             </div>
-
         </div>
         {{>_msg}}
         <hr>
@@ -39,7 +27,7 @@
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>
-            <button type="submit" class="btn btn-info">Salvar</button>
+            <button type="submit" class="btn btn-warning">Salvar</button>
         </form>
     </div>
 </div>

@@ -18,7 +18,7 @@ router.get('/pagamentos', (req, res) => {
 
     }).catch((erro) => {
         req.flash("error_msg", "Erro: categoria de pagamentos não encontrados!");
-        res.redirect('admin/pagamentos');
+        res.redirect('/pagamentos');
     });
 
 
@@ -30,14 +30,31 @@ router.get('/edit-pagamento/:id', (req, res) => {
             res.render("admin/edit-pagamento", { pagamento: pagamento, catpagamentos: catpagamentos })
         }).catch((erro) => {
             req.flash("error_msg", "Error: Não foi possível carregar as categorias de pagamentos!")
-            res.redirect('/admin/pagamento')
+            res.redirect('/pagamentos');
         })
 
 
     }).catch((erro) => {
         req.flash("error_msg", "Error: Não é possível carregar o formulário editar pagamento!")
-        res.redirect('/admin/pagamento')
+        res.redirect('/pagamentos');
     })
+})
+router.post('/update-pagamento', (req, res) => {
+    Pagamento.findOne({ _id: req.body.id }).then((pagamento) => {
+        pagamento.nome = req.body.nome,
+            pagamento.valor = req.body.valor;
+        pagamento.catpagamento = req.body.catpagamento
+        pagamento.save().then(() => {
+            req.flash("success_msg", "Pagamento editada com sucesso!")
+            res.redirect("/pagamentos");
+        }).catch((erro) => {
+            req.flash("error_msg", "Error: Categoria de pagamento não foi editada com sucesso!")
+            res.redirect("/pagamentos");
+        });
+    }).catch((erro) => {
+        req.flash("error_msg", "Error: Categoria de pagamento não encontrado!")
+        res.redirect("/pagamentos");
+    });
 });
 
 router.get('/cad-pagamento', (req, res) => {
@@ -81,7 +98,7 @@ router.post('/add-pagamento', (req, res) => {
 
 });
 
-
+/*CATEGORIAS DE PAGAMENTOS*/
 router.get('/cat-pagamento', (req, res) => {
     CatPagamento.find().then((catpagamento) => {
         res.render('admin/cat-pagamento', { catpagamentos: catpagamento });
@@ -116,30 +133,31 @@ router.post('/add-cat-pagamento', (req, res) => {
 });
 
 router.get('/edit-cat-pagamento/:id', (req, res) => {
-
     CatPagamento.findOne({ _id: req.params.id }).then((catpagamento) => {
-        res.render('admin/edit-cat-pagamento', { catpagamento: catpagamento });
+        res.render("admin/edit-cat-pagamento", { catpagamento: catpagamento })
     }).catch((erro) => {
-        req.flash("error_msg", "Error: Categoria de pagamento não foi editada com sucesso!")
-        res.redirect('/cat-pagamento');
-    });
-});
+        req.flash("error_msg", "Error: Categoria de pagamento não encontrado!")
+        res.redirect("/admin/cat-pagamento")
+    })
+
+})
 
 router.post('/update-cat-pagamento', (req, res) => {
     CatPagamento.findOne({ _id: req.body.id }).then((catpagamento) => {
         catpagamento.nome = req.body.nome
         catpagamento.save().then(() => {
             req.flash("success_msg", "Categoria de pagamento editada com sucesso!")
-            res.redirect("/cat-pagamento");
+            res.redirect("/cat-pagamento")
         }).catch((erro) => {
             req.flash("error_msg", "Error: Categoria de pagamento não foi editada com sucesso!")
-            res.redirect("/cat-pagamento");
-        });
+            res.redirect("/cat-pagamento")
+        })
     }).catch((erro) => {
         req.flash("error_msg", "Error: Categoria de pagamento não encontrado!")
-        res.redirect("/cat-pagamento");
-    });
-});
+        res.redirect("/cat-pagamento")
+    })
+})
+
 
 router.get('/del-cat-pagamento/:id', (req, res) => {
 
