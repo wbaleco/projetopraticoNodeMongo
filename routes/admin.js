@@ -6,10 +6,25 @@ require("../models/CatPagamento");
 const CatPagamento = mongoose.model('catpagamento');
 require('../models/Pagamento');
 const Pagamento = mongoose.model('pagamento');
+require('../models/Usuario');
+const Usuario = mongoose.model('usuario');
 
+//Página inicial
 router.get('/', (req, res) => {
     //res.send("Página incial do administrativo");
     res.render('admin/index');
+});
+
+//LISTAR USUÁRIOS
+router.get('/usuarios', (req, res) => {
+    res.render('admin/usuarios');
+
+});
+
+//CADASTRAR USUÁRIO
+router.get('/cad-usuario', (req, res) => {
+    res.render('admin/cad-usuario');
+
 });
 
 router.get('/pagamentos', (req, res) => {
