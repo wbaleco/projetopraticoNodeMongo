@@ -18,7 +18,15 @@ router.get('/', (req, res) => {
 
 //LISTAR USUÁRIOS
 router.get('/usuarios', (req, res) => {
-    res.render('admin/usuarios');
+
+    Usuario.find().then((usuario) => {
+        res.render('admin/usuarios', { usuarios: usuario });
+    }).catch((erro) => {
+        req.flash("error_msg", "Erro: Usuários não encontrados!");
+        res.redirect('/usuarios');
+
+    })
+
 
 });
 
