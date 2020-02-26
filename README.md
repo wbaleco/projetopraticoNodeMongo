@@ -18,3 +18,6 @@ npm install --save express-session
 
 //Instalar o módulo para manipular as mensagens
 npm install --save connect-flash
+
+//Instalar o módulo para criptografar senhas
+npm install --save bcryptjs 

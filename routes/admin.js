@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const bcryptjs = require('bcryptjs');
 require("../models/CatPagamento");
 const CatPagamento = mongoose.model('catpagamento');
 require('../models/Pagamento');
@@ -24,6 +25,77 @@ router.get('/usuarios', (req, res) => {
 //CADASTRAR USUÁRIO
 router.get('/cad-usuario', (req, res) => {
     res.render('admin/cad-usuario');
+
+});
+
+router.post('/add-usuario', (req, res) => {
+    var errors = []
+    if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {
+        errors.push({ error: "Erro: Necessário preencher o campo nome!" })
+    }
+    if (!req.body.email || typeof req.body.email == undefined || req.body.email == null) {
+        errors.push({ error: "Erro: Necessário preencher o campo e-mail!" })
+    }
+    if (!req.body.senha || typeof req.body.senha == undefined || req.body.senha == null) {
+        errors.push({ error: "Erro: Necessário preencher o campo senha!" })
+    }
+    if (!req.body.rep_senha || typeof req.body.rep_senha == undefined || req.body.rep_senha == null) {
+        errors.push({ error: "Erro: Necessário preencher o campo repetir senha!" })
+    }
+    if (req.body.senha != req.body.rep_senha) {
+        errors.push({ error: "Erro: As senhas são diferentes!" })
+    }
+    if (req.body.senha.length < 6) {
+        errors.push({ error: "Erro: Senha muito fraca!" })
+    }
+
+    if (errors.length > 0) {
+        res.render("admin/cad-usuario", { errors: errors })
+    } else {
+
+        Usuario.findOne({ email: req.body.email }).then((usuario) => {
+
+            if (usuario) {
+                req.flash("error_msg", "Erro: Este email já está sendo utilizado!");
+                res.redirect('/cad-usuario');
+            } else {
+
+                const addUsuario = new Usuario({
+                    nome: req.body.nome,
+                    email: req.body.email,
+                    senha: req.body.senha
+                });
+                bcryptjs.genSalt(10, (erro, salt) => {
+                    bcryptjs.hash(addUsuario.senha, salt, (erro, hash) => {
+                        if (erro) {
+                            req.flash("error_msg", "Erro: Não foi possível cadastrar!");
+                            res.redirect('/cad-usuarios');
+
+                        } else {
+                            addUsuario.senha = hash;
+                            addUsuario.save().then(() => {
+                                req.flash("success_msg", "Usuário cadastrado com sucesso!")
+                                res.redirect("/usuarios");
+
+                            }).catch((erro) => {
+                                req.flash("error_msg", "Erro: Não foi possível cadastrar!");
+                                res.redirect('/cad-usuarios');
+
+                            });
+                        }
+                    });
+                });
+
+            }
+
+        }).catch((erro) => {
+
+            req.flash("error_msg", "Erro: Não foi possível cadastrar o usuário!");
+            res.redirect('/usuarios');
+
+        });
+
+    }
 
 });
 
