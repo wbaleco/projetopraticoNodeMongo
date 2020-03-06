@@ -15,9 +15,10 @@
   <hr>
 
   {{>_msg}}
-  
+
+
   <div class="table-responsive">
-  <table class="table table-striped table-hover table-bordered">
+   <table class="table table-striped table-hover table-bordered">
     <thead>
      <tr>
 
@@ -27,7 +28,7 @@
      </tr>
     </thead>
     <tbody>
-     {{#each usuarios}}
+     {{#each usuarios.docs}}
 
      <tr>
       <td> {{nome}}</td>
@@ -54,6 +55,39 @@
      {{/each}}
     </tbody>
    </table>
+   <nav aria-label="paginacao">
+    <ul class="pagination pagination-sm justify-content-center">
+     {{#if usuarios.hasPrevPage}}
+     <li class="page-item">
+      <a class="page-link" href="/usuarios?page=1" tabindex="-1">Primeira</a>
+     </li>
+     <li class="page-item"><a class="page-link" href="/usuarios?page={{usuarios.prevPage}}">{{usuarios.prevPage}}</a>
+     </li>
+     {{else}}
+     <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Primeira</a>
+     </li>
+     {{/if}}
+
+
+     <li class="page-item active">
+      <a class="page-link" href="#">{{usuarios.page}}</a>
+     </li>
+
+     {{#if usuarios.hasNextPage}}
+     <li class="page-item"><a class="page-link" href="/usuarios?page={{usuarios.nextPage}}">{{usuarios.nextPage}}</a>
+     </li>
+     <li class="page-item">
+      <a class="page-link" href="/usuarios?page={{usuarios.totalPages}}">Última</a>
+     </li>
+     {{else}}
+     <li class="page-item disabled">
+      <a class="page-link" href="#">Última</a>
+     </li>
+     {{/if}}
+
+    </ul>
+   </nav>
   </div>
  </div>
 </div>

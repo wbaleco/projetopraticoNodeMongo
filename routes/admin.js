@@ -10,23 +10,25 @@ const Pagamento = mongoose.model('pagamento');
 require('../models/Usuario');
 const Usuario = mongoose.model('usuario');
 
+
+
 //Página inicial
 router.get('/', (req, res) => {
     //res.send("Página incial do administrativo");
     res.render('admin/index');
 });
 
-//LISTAR USUÁRIOS
+//LISTAR USUÁRIOS E PAGINAÇÃO
 router.get('/usuarios', (req, res) => {
-
-    Usuario.find().then((usuario) => {
+    const { page = 1 } = req.query;
+    Usuario.paginate({}, { page, limit: 2 }).then((usuario) => {
+        console.log(usuario);
         res.render('admin/usuarios', { usuarios: usuario });
     }).catch((erro) => {
         req.flash("error_msg", "Erro: Usuários não encontrados!");
         res.redirect('/usuarios');
 
-    })
-
+    });
 
 });
 

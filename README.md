@@ -21,3 +21,6 @@ npm install --save connect-flash
 
 //Instalar o módulo para criptografar senhas
 npm install --save bcryptjs 
+
+//Instalar o módulo para paginação com mongoose
+npm install --save mongoose-paginate-v2
